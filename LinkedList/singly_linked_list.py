@@ -1,4 +1,4 @@
-from __future__ import  annotations
+from __future__ import annotations
 # from typing import TypeVar, Generic, Type, Union
 # NodeType = Type[Node]
 
@@ -42,6 +42,7 @@ class SinglyLinkedList:
             self.add_first(data)
         self.tail.next = node
         self.tail = node
+        self.size += 1
 
     def remove_first(self) -> None:
         if self.head is not None:
@@ -70,10 +71,45 @@ class SinglyLinkedList:
         return
 
     def remove(self, data: int) -> None:
-        pass
+        if self.head is not None:
+            if self.head.data == data:
+                self.remove_first()
+                return
+            if self.tail.data == data:
+                self.remove_last()
+                return
+            current = self.head
+            prev = None
+            while current.next is not None:
+                if current.data == data:
+                    prev.next = current.next
+                prev = current
+                current = current.next
+            self.size -= 1
+            return
+        return
 
+    # position index starts from 0
     def remove_at_position(self, pos: int) -> None:
-        pass
+        if self.head is not None:
+            if pos >= self.size:
+                raise ValueError('Linked list size exceeded')
+            if pos == 0:
+                self.remove_first()
+                return
+            if pos == self.size - 1:
+                self.remove_last()
+                return
+            current = self.head
+            prev = None
+            for i in range(self.size):
+                if i == pos:
+                    prev.next = current.next
+                prev = current
+                current = current.next
+            self.size -= 1
+            return
+        return
 
     def contains(self, data: int) -> bool:
         pass

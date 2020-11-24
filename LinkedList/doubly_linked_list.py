@@ -25,3 +25,48 @@ class Node:
     def set_prev(self, node: Node) -> None:
         self.prev = node
 
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head: Node = None
+        self.tail: Node = None
+        self.size: int = 0
+
+    def add_first(self, data: int) -> None:
+        pass
+
+    def add_last(self, data: int) -> None:
+        pass
+
+    def remove_first(self) -> None:
+        pass
+
+    def remove_last(self) -> None:
+        pass
+
+    def remove(self, data: int) -> None:
+        pass
+
+    def remove_at_position(self, pos: int) -> None:
+        pass
+
+    def contains(self, data: int) -> bool:
+        pass
+
+    def insert(self, data: int, pos: int) -> None:
+        pass
+
+    def replace(self, data: int, pos) -> None:
+        pass
+
+    def find(self, data: int) -> int:
+        pass
+
+    def display(self) -> None:
+        pass
+
+    def reverse(self) -> None:
+        pass
+
+    def no_of_occurrence(self, data: int) -> None:
+        pass
