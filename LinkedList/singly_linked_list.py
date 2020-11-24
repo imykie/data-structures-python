@@ -105,6 +105,7 @@ class SinglyLinkedList:
             for i in range(self.size):
                 if i == pos:
                     prev.next = current.next
+                    break
                 prev = current
                 current = current.next
             self.size -= 1
@@ -112,19 +113,81 @@ class SinglyLinkedList:
         return
 
     def contains(self, data: int) -> bool:
-        pass
+        if self.head is not None:
+            current = self.head
+            while current is not None:
+                if current.data == data:
+                    return True
+                current = current.next
+        return False
 
     def insert(self, data: int, pos: int) -> None:
-        pass
+        if self.head is not None:
+            if pos >= self.size + 1:
+                raise ValueError('invalid position - cannot add to a position greater than the linkedlist size')
+            if pos == 0:
+                self.add_first(data)
+                return
+            if pos == self.size:
+                self.add_last(data)
+                return
+            node = Node(data)
+            # set current to index 1
+            current = self.head.next
+            prev = self.head
+            for i in range(1, self.size):
+                if i == pos:
+                    prev.next = node
+                    node.next = current
+                    break
+                prev = current
+                current = current.next
+            self.size += 1
+        return
 
     def replace(self, data: int, pos) -> None:
-        pass
+        if self.head is not None:
+            if pos >= self.size:
+                raise ValueError('invalid position - cannot replace node data because node does not exist')
+            if pos == 0:
+                self.head.data = data
+                return
+            if pos == self.size - 1:
+                self.tail.data = data
+                return
+            # set current to index 1
+            current = self.head.next
+            prev = self.head
+            for i in range(1, self.size):
+                if i == pos:
+                    current.data = data
+                    break
+                prev = current
+                current = current.next
+        return
 
+    # returns -1 if position not found
     def find(self, data: int) -> int:
-        pass
+        if self.head is not None:
+            pos = 0
+            current = self.head
+            while current is not None:
+                if current.data == data:
+                    return pos
+                current = current.next
+                pos += 1
+        return -1
 
     def display(self) -> None:
-        pass
+        if self.head is not None:
+            current = self.head
+            for i in range(self.size):
+                if i == self.size - 1:
+                    print(str(current.data), end='')
+                else:
+                    print(str(current.data)+' -> ', end='')
+                current = current.next
+        return
 
     def reverse(self) -> None:
         pass

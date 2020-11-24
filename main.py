@@ -11,6 +11,11 @@ def test():
     l.add_last(3)
     l.add_last(12)
     l.remove_at_position(0)
+    l.insert(7,1)
+    l.replace(20,0)
+    l.display()
+    print('')
+    print(l.find(12))
     print(l.head.data, l.head.next.data)
 
 
