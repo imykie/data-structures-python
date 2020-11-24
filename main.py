@@ -17,6 +17,9 @@ def test():
     print('')
     print(l.find(12))
     print(l.head.data, l.head.next.data)
+    l.insert(21,2)
+    l.reverse()
+    l.display()
 
 
 if __name__ == '__main__':

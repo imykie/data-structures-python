@@ -190,7 +190,26 @@ class SinglyLinkedList:
         return
 
     def reverse(self) -> None:
-        pass
+        if self.head is not None:
+            if self.head == self.tail:
+                return
+            current = self.head
+            prev = None
+            while current is not None:
+                next_node = current.next
+                current.next = prev
+                prev = current
+                current = next_node
+            self.tail = self.head
+            self.head = prev
+        return
 
     def no_of_occurrence(self, data: int) -> None:
-        pass
+        counter = 0
+        if self.head is not None:
+            current = self.head
+            while current is not None:
+                if current.data == data:
+                    counter += 1
+                current = current.next
+        return counter
