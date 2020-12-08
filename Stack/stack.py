@@ -7,7 +7,7 @@ class Stack:
         self.linked_list = SinglyLinkedList()
 
     def is_empty(self) -> bool:
-        return True if self.linked_list.size > 0 else False
+        return False if self.linked_list.size > 0 else True
 
     def push(self, data) -> None:
         self.linked_list.add_last(data)
@@ -17,3 +17,20 @@ class Stack:
 
     def peek(self) -> int:
         return self.linked_list.tail.data
+
+
+class StackArr:
+    def __init__(self):
+        self.data = []
+
+    def is_empty(self) -> bool:
+        return False if len(self.data) > 0 else True
+
+    def push(self, data) -> None:
+        self.data.append(data)
+
+    def pop(self) -> None:
+        self.data.pop()
+
+    def peek(self) -> int:
+        return self.data[len(self.data) - 1]
