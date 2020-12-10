@@ -1,5 +1,6 @@
 from __future__ import annotations
 from Trees import BinarySearchTreeNode
+from collections import deque
 
 
 class BinarySearchTree:
@@ -15,9 +16,9 @@ class BinarySearchTree:
         self.size += 1
 
     def __add_helper(self, data: int, node: BinarySearchTreeNode) -> None:
-        if node.data == data:
+        if data == node.data:
             return
-        if node.data > data:
+        if data > node.data:
             if node.right is None:
                 node.right = BinarySearchTreeNode(data)
                 return
@@ -31,26 +32,22 @@ class BinarySearchTree:
         return
 
     def remove(self, data: int) -> BinarySearchTreeNode:
-        if self.root is None:
-            return
         return self.__remove_helper(data, self.root)
 
     def __remove_helper(self, data: int, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
         if node is None:
             return node
-        elif data > node.data:
-            node.right = self.__remove_helper(data, self.right)
+        if data > node.data:
+            node.right = self.__remove_helper(data, node.right)
         elif data < node.data:
-            node.left = self.__remove_helper(data, self.left)
+            node.left = self.__remove_helper(data, node.left)
         else:
             if node.right is None and node.left is None:
                 node = None
             elif node.right is None:
                 node = node.left
-                node.left = None
             elif node.left is None:
                 node = node.right
-                node.right = None
             else:
                 tmp = self.minimum(node.right)
                 node.data = tmp.data
@@ -58,32 +55,28 @@ class BinarySearchTree:
         return node
 
     def contains(self, data: int) -> bool:
-        if self.root is None or data is None:
-            return False
         return self.__contains_helper(data, self.root)
 
     def __contains_helper(self, data: int, node: BinarySearchTreeNode) -> bool:
+        if node is None:
+            return False
         if data == node.data:
             return True
         if data > node.data:
-            node.right = self.__contains_helper(data, node.right)
-        if data < node.data:
-            node.left = self.__contains_helper(data, node.left)
-        return False
+            return self.__contains_helper(data, node.right)
+        return self.__contains_helper(data, node.left)
 
     def find(self, data: int) -> BinarySearchTreeNode:
-        if self.root is None or data is None:
-            return None
         return self.__find_helper(data, self.root)
 
     def __find_helper(self, data: int, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
+        if node is None:
+            return None
         if data == node.data:
             return node
         if data > node.data:
-            node.right = self.__find_helper(data, node.right)
-        if data < node.data:
-            node.left = self.__find_helper(data, node.left)
-        return None
+            return self.__find_helper(data, node.right)
+        return self.__find_helper(data, node.left)
 
     # the leftmost (smallest node) in the right subtree
     def minimum(self, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
@@ -176,7 +169,7 @@ class BinarySearchTree:
         if key == root.data:
             if root.left is not None:
                 return self.maximum(root.left)
-        if key > root.data:
+        elif key > root.data:
             predecessor = root
             return self.predecessor_alt(root.right, predecessor, key)
         else:
@@ -199,22 +192,59 @@ class BinarySearchTree:
         return self.__postorder_helper(self.root)
 
     def __preorder_helper(self, node: BinarySearchTreeNode) -> None:
-        if node is None:
-            return
-        print(node.data, end='->')
-        self.__preorder_helper(node.left)
-        self.__preorder_helper(node.right)
+        if node is not None:
+            print(str(node.data)+' -> ', end='')
+            self.__preorder_helper(node.left)
+            self.__preorder_helper(node.right)
 
     def __inorder_helper(self, node: BinarySearchTreeNode) -> None:
-        if node is None:
-            return
-        self.__preorder_helper(node.left)
-        print(node.data, end='->')
-        self.__preorder_helper(node.right)
+        if node is not None:
+            print(node.data)
+            self.__preorder_helper(node.left)
+            print(str(node.data)+' -> ', end='')
+            self.__preorder_helper(node.right)
 
     def __postorder_helper(self, node: BinarySearchTreeNode) -> None:
-        if node is None:
-            return
-        self.__preorder_helper(node.left)
-        self.__preorder_helper(node.right)
-        print(node.data, end='->')
+        if node is not None:
+            self.__preorder_helper(node.left)
+            self.__preorder_helper(node.right)
+            print(str(node.data)+' -> ', end='')
+
+    def invert(self) -> BinarySearchTreeNode:
+        return self.__invert_helper(self.root)
+
+    def __invert_helper(self, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
+        if node is not None:
+            temp: BinarySearchTreeNode = node.left
+            node.left = node.right
+            node.right = temp
+            self.__invert_helper(node.left)
+            self.__invert_helper(node.right)
+        return node
+
+    def print_tree(self) -> None:
+        self.__print_tree_helper(self.root)
+
+    def __print_tree_helper(self, root: BinarySearchTreeNode) -> None:
+        res = []
+        q = deque([root])
+        while q:
+            row = []
+            for _ in range(len(q)):
+                node = q.popleft()
+                if not node:
+                    row.append("#")
+                    continue
+                row.append(node.data)
+                q.append(node.left)
+                q.append(node.right)
+            res.append(row)
+        rows = len(res)
+        base = 2 ** (rows)
+        for r in range(rows):
+            for v in res[r]:
+                print("." * (base), end="")
+                print(v, end="")
+                print("." * (base - 1), end="")
+            print("|")
+            base //= 2

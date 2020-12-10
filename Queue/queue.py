@@ -18,6 +18,9 @@ class Queue:
     def peek(self) -> int:
         return self.linked_list.head.data if self.linked_list is not None else None
 
+    def size(self) -> int:
+        return self.linked_list.size
+
 
 class QueueArr:
     def __init__(self):
@@ -34,4 +37,7 @@ class QueueArr:
 
     def peek(self) -> int:
         return self.data[0] if len(self.data) > 0 else None
+
+    def size(self) -> int:
+        return len(self.data)
 

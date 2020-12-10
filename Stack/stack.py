@@ -18,6 +18,9 @@ class Stack:
     def peek(self) -> int:
         return self.linked_list.tail.data if self.linked_list.head is not None else None
 
+    def size(self) -> int:
+        return self.linked_list.size
+
 
 class StackArr:
     def __init__(self):
@@ -34,3 +37,6 @@ class StackArr:
 
     def peek(self) -> int:
         return self.data[len(self.data) - 1] if len(self.data) > 0 else None
+
+    def size(self) -> int:
+        return len(self.data)
