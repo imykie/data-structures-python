@@ -2,11 +2,18 @@ from __future__ import annotations
 
 
 class AVLTreeNode:
-    def __init__(self, data: int, left: AVLTreeNode = None, right: AVLTreeNode = None, parent: AVLTreeNode = None) -> None:
+    def __init__(self,
+                 data: int,
+                 left: AVLTreeNode = None,
+                 right: AVLTreeNode = None,
+                 parent: AVLTreeNode = None,
+                 balance: int = 0
+                 ) -> None:
         self.data = data
         self.left = left
         self.right = right
         self.parent = parent
+        self.balance = balance
 
     def get_data(self) -> int:
         return self.data
@@ -31,3 +38,10 @@ class AVLTreeNode:
 
     def set_parent(self, parent: AVLTreeNode) -> None:
         self.parent = parent
+
+    def get_balance(self, balance: AVLTreeNode) -> None:
+        self.balance = balance
+
+    def set_balance(self, balance: AVLTreeNode) -> None:
+        self.balance = balance
+
