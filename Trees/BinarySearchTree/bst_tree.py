@@ -13,7 +13,6 @@ class BinarySearchTree:
             self.root = BinarySearchTreeNode(data)
         else:
             self.__add_helper(data, self.root)
-        self.size += 1
 
     def __add_helper(self, data: int, node: BinarySearchTreeNode) -> None:
         if data == node.data:
@@ -21,12 +20,14 @@ class BinarySearchTree:
         if data > node.data:
             if node.right is None:
                 node.right = BinarySearchTreeNode(data)
+                self.size += 1
                 return
             self.__add_helper(data, node.right)
             return
 
         if node.left is None:
             node.left = BinarySearchTreeNode(data)
+            self.size += 1
             return
         self.__add_helper(data, node.left)
         return
@@ -52,6 +53,7 @@ class BinarySearchTree:
                 tmp = self.minimum(node.right)
                 node.data = tmp.data
                 node.right = self.__remove_helper(tmp.data, node.right)
+            self.size -= 1
         return node
 
     def contains(self, data: int) -> bool:
@@ -192,23 +194,22 @@ class BinarySearchTree:
         return self.__postorder_helper(self.root)
 
     def __preorder_helper(self, node: BinarySearchTreeNode) -> None:
-        if node is not None:
+        if node:
             print(str(node.data)+' -> ', end='')
             self.__preorder_helper(node.left)
             self.__preorder_helper(node.right)
 
     def __inorder_helper(self, node: BinarySearchTreeNode) -> None:
-        if node is not None:
-            print(node.data)
-            self.__preorder_helper(node.left)
-            print(str(node.data)+' -> ', end='')
-            self.__preorder_helper(node.right)
+        if node:
+            self.__inorder_helper(node.left)
+            print(str(node.data) + ' -> ', end='')
+            self.__inorder_helper(node.right)
 
     def __postorder_helper(self, node: BinarySearchTreeNode) -> None:
-        if node is not None:
-            self.__preorder_helper(node.left)
-            self.__preorder_helper(node.right)
-            print(str(node.data)+' -> ', end='')
+        if node:
+            self.__postorder_helper(node.left)
+            self.__postorder_helper(node.right)
+            print(str(node.data) + ' -> ', end='')
 
     def invert(self) -> BinarySearchTreeNode:
         return self.__invert_helper(self.root)
@@ -221,6 +222,9 @@ class BinarySearchTree:
             self.__invert_helper(node.left)
             self.__invert_helper(node.right)
         return node
+
+    def get_size(self) -> int:
+        return self.size
 
     def print_tree(self) -> None:
         self.__print_tree_helper(self.root)
