@@ -41,8 +41,6 @@ def test():
     t.add(8)
     t.add(2)
     t.add(22)
-
-
     # t.print_tree()
     # t.invert()
     # print()
@@ -61,6 +59,9 @@ def test():
     t.inorder()
     print()
     t.postorder()
+    t.invert()
+    print()
+    t.print_tree()
 
 
 if __name__ == '__main__':
