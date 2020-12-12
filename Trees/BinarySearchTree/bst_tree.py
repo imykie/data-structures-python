@@ -8,13 +8,13 @@ class BinarySearchTree:
         self.root: BinarySearchTreeNode = root
         self.size: int = 0
 
-    def add(self, data: int) -> None:
+    def insert(self, data: int) -> None:
         if self.root is None:
             self.root = BinarySearchTreeNode(data)
         else:
-            self.__add_helper(data, self.root)
+            self.__insert_helper(data, self.root)
 
-    def __add_helper(self, data: int, node: BinarySearchTreeNode) -> None:
+    def __insert_helper(self, data: int, node: BinarySearchTreeNode) -> None:
         if data == node.data:
             return
         if data > node.data:
@@ -22,14 +22,14 @@ class BinarySearchTree:
                 node.right = BinarySearchTreeNode(data)
                 self.size += 1
                 return
-            self.__add_helper(data, node.right)
+            self.__insert_helper(data, node.right)
             return
 
         if node.left is None:
             node.left = BinarySearchTreeNode(data)
             self.size += 1
             return
-        self.__add_helper(data, node.left)
+        self.__insert_helper(data, node.left)
         return
 
     def remove(self, data: int) -> BinarySearchTreeNode:

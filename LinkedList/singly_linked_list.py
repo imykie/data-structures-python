@@ -90,21 +90,21 @@ class SinglyLinkedList:
         return
 
     # position index starts from 0
-    def remove_at_position(self, pos: int) -> None:
+    def remove_at_position(self, index: int) -> None:
         if self.head is not None:
-            if pos >= self.size:
+            if index >= self.size:
                 # raise ValueError('Linked list size exceeded')
                 return
-            if pos == 0:
+            if index == 0:
                 self.remove_first()
                 return
-            if pos == self.size - 1:
+            if index == self.size - 1:
                 self.remove_last()
                 return
             current = self.head
             prev = None
             for i in range(self.size):
-                if i == pos:
+                if i == index:
                     prev.next = current.next
                     break
                 prev = current
@@ -122,13 +122,13 @@ class SinglyLinkedList:
                 current = current.next
         return False
 
-    def insert(self, data: int, pos: int) -> None:
-        if pos > self.size:
+    def insert(self, data: int, index: int) -> None:
+        if index > self.size:
             raise ValueError('invalid position - cannot add to a position greater than the linkedlist size')
-        if pos == 0:
+        if index == 0:
             self.add_first(data)
             return
-        if pos == self.size:
+        if index == self.size:
             self.add_last(data)
             return
         node = Node(data)
@@ -136,7 +136,7 @@ class SinglyLinkedList:
         current = self.head.next
         prev = self.head
         for i in range(1, self.size):
-            if i == pos:
+            if i == index:
                 prev.next = node
                 node.next = current
                 self.size += 1
@@ -145,16 +145,16 @@ class SinglyLinkedList:
             current = current.next
         return
 
-    def replace(self, data: int, pos) -> None:
+    def replace(self, data: int, index: int) -> None:
         if self.head is not None:
-            if pos >= self.size:
+            if index >= self.size:
                 raise ValueError('invalid position - cannot replace node data because node does not exist')
-            if pos == self.size - 1:
+            if index == self.size - 1:
                 self.tail.data = data
                 return
             current = self.head
             for i in range(self.size):
-                if i == pos:
+                if i == index:
                     current.data = data
                     break
                 current = current.next
@@ -163,26 +163,26 @@ class SinglyLinkedList:
     # returns -1 if position not found
     def find(self, data: int) -> int:
         if self.head is not None:
-            pos = 0
+            index = 0
             current = self.head
             while current is not None:
                 if current.data == data:
-                    return pos
+                    return index
                 current = current.next
-                pos += 1
+                index += 1
         return -1
 
-    def get(self, pos: int) -> int:
+    def get(self, index: int) -> int:
         if self.head is not None:
-            if pos >= self.size:
+            if index >= self.size:
                 return -1
-            if pos == 0:
+            if index == 0:
                 return self.head.data
-            if pos == self.size - 1:
+            if index == self.size - 1:
                 return self.tail.data
             current = self.head.next
             for i in range(1, self.size):
-                if pos == i:
+                if index == i:
                     return current.data
                 current = current.next
         return -1
