@@ -83,13 +83,13 @@ class BinarySearchTree:
     # the leftmost (smallest node) in the right subtree
     def minimum(self, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
         while node.left is not None:
-            return self.minimum(node.left)
+            node = node.left
         return node
 
     # the rightmost (largest node) in the left subtree
     def maximum(self, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
         while node.right is not None:
-            return self.maximum(node.right)
+            node = node.right
         return node
 
     """
@@ -216,7 +216,7 @@ class BinarySearchTree:
 
     def __invert_helper(self, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
         if node is not None:
-            temp: BinarySearchTreeNode = node.left
+            temp = node.left
             node.left = node.right
             node.right = temp
             self.__invert_helper(node.left)
