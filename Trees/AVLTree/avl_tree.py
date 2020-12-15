@@ -130,6 +130,18 @@ class AVLTree:
             self.size -= 1
         return node
 
+    def contains(self, data: int) -> bool:
+        return self.__contains_helper(data, self.root)
+
+    def __contains_helper(self, data: int, node: AVLTreeNode) -> bool:
+        if node is None:
+            return False
+        if data == node.data:
+            return True
+        if data > node.data:
+            return self.__contains_helper(data, node.right)
+        return self.__contains_helper(data, node.left)
+
     def get(self, data: int) -> AVLTreeNode:
         return self.__get_helper(data, self.root)
 
@@ -141,6 +153,9 @@ class AVLTree:
         if data > node.data:
             return self.__get_helper(data, node.right)
         return self.__get_helper(data, node.left)
+
+    def get_size(self) -> int:
+        return self.size
 
     def __update_balance(self, node: AVLTreeNode) -> None:
         if node.balance > 1 or node.balance < -1:
@@ -259,7 +274,7 @@ class AVLTree:
     def __inorder_helper(self, node: AVLTreeNode) -> None:
         if node:
             self.__inorder_helper(node.left)
-            print('data: '+str(node.data) + ', balance: '+ str(node.balance))
+            print(str(node.data) + ' -> ', end='')
             self.__inorder_helper(node.right)
 
     def __postorder_helper(self, node: AVLTreeNode) -> None:
@@ -275,11 +290,11 @@ class AVLTree:
             else:
                 node.parent.right = None
 
-    def height_node(self, tree_node):
-        if not tree_node:
+    def node_height(self, node):
+        if not node:
             return 0
         else:
-            return 1 + max(self.height_node(tree_node.right), self.height_node(tree_node.left))
+            return 1 + max(self.node_height(node.right), self.node_height(node.left))
 
     def print_tree(self) -> None:
         self.__print_tree_helper(self.root)
