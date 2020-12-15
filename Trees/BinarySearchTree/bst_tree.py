@@ -32,16 +32,16 @@ class BinarySearchTree:
         self.__insert_helper(data, node.left)
         return
 
-    def remove(self, data: int) -> BinarySearchTreeNode:
-        return self.__remove_helper(data, self.root)
+    def delete(self, data: int) -> BinarySearchTreeNode:
+        return self.__delete_helper(data, self.root)
 
-    def __remove_helper(self, data: int, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
+    def __delete_helper(self, data: int, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
         if node is None:
             return node
         if data > node.data:
-            node.right = self.__remove_helper(data, node.right)
+            node.right = self.__delete_helper(data, node.right)
         elif data < node.data:
-            node.left = self.__remove_helper(data, node.left)
+            node.left = self.__delete_helper(data, node.left)
         else:
             if node.right is None and node.left is None:
                 node = None
@@ -52,7 +52,7 @@ class BinarySearchTree:
             else:
                 tmp = self.minimum(node.right)
                 node.data = tmp.data
-                node.right = self.__remove_helper(tmp.data, node.right)
+                node.right = self.__delete_helper(tmp.data, node.right)
             self.size -= 1
         return node
 
