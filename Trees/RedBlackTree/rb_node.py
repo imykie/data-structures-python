@@ -20,8 +20,7 @@ class RBTreeNode:
     def get_data(self) -> int:
         return self.data
 
-    def set_data(self, key=0, data: int = 0, left: RBTreeNode = None, right: RBTreeNode = None,
-                 parent: RBTreeNode = None, is_black: bool = False, is_left_child: bool = False) -> None:
+    def set_data(self, data: int) -> None:
         self.data = data
 
     def get_right(self, right: RBTreeNode) -> None:
