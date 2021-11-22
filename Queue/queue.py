@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from LinkedList import SinglyLinkedList
 
 
@@ -41,3 +42,5 @@ class QueueArr:
     def size(self) -> int:
         return len(self.data)
 
+    def clear(self) -> None:
+        self.data = []

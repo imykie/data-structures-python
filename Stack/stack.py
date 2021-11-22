@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from LinkedList import SinglyLinkedList
 
 
@@ -21,6 +22,9 @@ class Stack:
     def size(self) -> int:
         return self.linked_list.size
 
+    def clear(self) -> None:
+        self.linked_list.clear()
+
 
 class StackArr:
     def __init__(self):
@@ -40,3 +44,6 @@ class StackArr:
 
     def size(self) -> int:
         return len(self.data)
+
+    def clear(self) -> None:
+        self.data = []

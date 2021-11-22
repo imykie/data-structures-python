@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 # from typing import TypeVar, Generic, Type, Union
 # NodeType = Type[Node]
 
@@ -124,7 +125,8 @@ class SinglyLinkedList:
 
     def insert(self, data: int, index: int) -> None:
         if index > self.size:
-            raise ValueError('invalid position - cannot add to a position greater than the linkedlist size')
+            raise IndexError(
+                'invalid position - cannot add to a position greater than the linkedlist size')
         if index == 0:
             self.add_first(data)
             return
@@ -148,7 +150,8 @@ class SinglyLinkedList:
     def replace(self, data: int, index: int) -> None:
         if self.head is not None:
             if index >= self.size:
-                raise ValueError('invalid position - cannot replace node data because node does not exist')
+                raise ValueError(
+                    'invalid position - cannot replace node data because node does not exist')
             if index == self.size - 1:
                 self.tail.data = data
                 return
@@ -186,6 +189,9 @@ class SinglyLinkedList:
                     return current.data
                 current = current.next
         return -1
+
+    def clear(self) -> None:
+        self.head = self.tail = None
 
     def display(self) -> None:
         if self.head is not None:
