@@ -48,3 +48,26 @@ class Trie:
                 node = node.children[ch]
 
         return True
+
+    def remove(self, word: str) -> None:
+        node = self.root
+        if not node:
+            raise ValueError("Trie is empty")
+
+        return self.__remove_helper(self.root, word)
+
+    def __remove_helper(self, node: TrieNode, word: str, depth: int = 0):
+        # if it's last character
+        if depth == len(word):
+            node.is_end = False
+            return bool(node.children)
+
+        ch = word[depth]
+        if ch not in node.children:
+            raise ValueError(f"{word} is not in trie")
+
+        if self.__remove_helper(node.children[ch], word, depth + 1):
+            return True
+
+        node.children.pop(ch)
+        return bool(node.children) or node.is_end
