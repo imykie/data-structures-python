@@ -3,18 +3,16 @@ class HashSet:
         self.size = size
         self.data = [None] * self.size
 
-    def add(self, key: int) -> None:
+    def add(self, key: int, value: int) -> None:
         pos = self.hash(key)
-        head = self.data[pos]
-        if not head:
-            self.data[pos] = ListNode(key)
+
+        if self.data[pos] is None:
+            self.data[pos] = ListNode(key, value)
             return
-        node = head
-        while head:
-            if head.key == key:
-                return
-            head = head.next
-        self.data[pos] = ListNode(key, node)
+
+        next_node = self.data[pos]
+        self.data[pos] = ListNode(key, next_node)
+        return
 
     def remove(self, key: int) -> None:
         pos = self.hash(key)

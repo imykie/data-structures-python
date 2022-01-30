@@ -5,16 +5,13 @@ class HashMap:
 
     def put(self, key: int, value: int) -> None:
         pos = self.hash(key)
+
         if self.data[pos] is None:
             self.data[pos] = ListNode(key, value)
             return
-        node = head = self.data[pos]
-        while head:
-            if head.key == key:
-                head.value = value
-                return
-            head = head.next
-        self.data[pos] = ListNode(key, value, node)
+
+        next_node = self.data[pos]
+        self.data[pos] = ListNode(key, value, next_node)
         return
 
     def get(self, key: int) -> int:
