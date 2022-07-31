@@ -44,4 +44,3 @@ class AVLTreeNode:
 
     def set_balance(self, balance: AVLTreeNode) -> None:
         self.balance = balance
-

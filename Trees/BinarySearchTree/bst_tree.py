@@ -1,6 +1,8 @@
 from __future__ import annotations
-from Trees import BinarySearchTreeNode
+
 from collections import deque
+
+from Trees import BinarySearchTreeNode
 
 
 class BinarySearchTree:
@@ -12,9 +14,9 @@ class BinarySearchTree:
         if self.root is None:
             self.root = BinarySearchTreeNode(data)
         else:
-            self.__insert_helper(data, self.root)
+            self._insert_helper(data, self.root)
 
-    def __insert_helper(self, data: int, node: BinarySearchTreeNode) -> None:
+    def _insert_helper(self, data: int, node: BinarySearchTreeNode) -> None:
         if data == node.data:
             return
         if data > node.data:
@@ -22,26 +24,26 @@ class BinarySearchTree:
                 node.right = BinarySearchTreeNode(data)
                 self.size += 1
                 return
-            self.__insert_helper(data, node.right)
+            self._insert_helper(data, node.right)
             return
 
         if node.left is None:
             node.left = BinarySearchTreeNode(data)
             self.size += 1
             return
-        self.__insert_helper(data, node.left)
+        self._insert_helper(data, node.left)
         return
 
     def delete(self, data: int) -> BinarySearchTreeNode:
-        return self.__delete_helper(data, self.root)
+        return self._delete_helper(data, self.root)
 
-    def __delete_helper(self, data: int, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
+    def _delete_helper(self, data: int, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
         if node is None:
             return node
         if data > node.data:
-            node.right = self.__delete_helper(data, node.right)
+            node.right = self._delete_helper(data, node.right)
         elif data < node.data:
-            node.left = self.__delete_helper(data, node.left)
+            node.left = self._delete_helper(data, node.left)
         else:
             if node.right is None and node.left is None:
                 node = None
@@ -52,33 +54,33 @@ class BinarySearchTree:
             else:
                 tmp = self.minimum(node.right)
                 node.data = tmp.data
-                node.right = self.__delete_helper(tmp.data, node.right)
+                node.right = self._delete_helper(tmp.data, node.right)
             self.size -= 1
         return node
 
     def contains(self, data: int) -> bool:
-        return self.__contains_helper(data, self.root)
+        return self._contains_helper(data, self.root)
 
-    def __contains_helper(self, data: int, node: BinarySearchTreeNode) -> bool:
+    def _contains_helper(self, data: int, node: BinarySearchTreeNode) -> bool:
         if node is None:
             return False
         if data == node.data:
             return True
         if data > node.data:
-            return self.__contains_helper(data, node.right)
-        return self.__contains_helper(data, node.left)
+            return self._contains_helper(data, node.right)
+        return self._contains_helper(data, node.left)
 
     def find(self, data: int) -> BinarySearchTreeNode:
-        return self.__find_helper(data, self.root)
+        return self._find_helper(data, self.root)
 
-    def __find_helper(self, data: int, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
+    def _find_helper(self, data: int, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
         if node is None:
             return None
         if data == node.data:
             return node
         if data > node.data:
-            return self.__find_helper(data, node.right)
-        return self.__find_helper(data, node.left)
+            return self._find_helper(data, node.right)
+        return self._find_helper(data, node.left)
 
     # the leftmost (smallest node) in the right subtree
     def minimum(self, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
@@ -98,6 +100,7 @@ class BinarySearchTree:
         child of the right subtree
     2. find successor from ancestors
     """
+
     def successor(self, data: int) -> BinarySearchTreeNode:
         if self.root is not None:
             current: BinarySearchTreeNode = self.find(data)
@@ -123,6 +126,7 @@ class BinarySearchTree:
             a) Set the successor as root
             b) search recursively into the left subtree
     """
+
     def successor_alt(self, root: BinarySearchTreeNode, successor: BinarySearchTreeNode, key: int):
         if root is None:
             return None
@@ -142,6 +146,7 @@ class BinarySearchTree:
             child of the left subtree
         2. find predecessor from ancestors
     """
+
     def predecessor(self, data: int) -> BinarySearchTreeNode:
         if self.root is not None:
             current = self.find(data)
@@ -165,6 +170,7 @@ class BinarySearchTree:
            a) set the predecessor as root
            b) search recursively to the right subtree
     """
+
     def predecessor_alt(self, root: BinarySearchTreeNode, predecessor: BinarySearchTreeNode, key: int) -> BinarySearchTreeNode:
         if root is None:
             return None
@@ -187,49 +193,78 @@ class BinarySearchTree:
     # inorder traversal -> left, root, right
     # sorts a binary search tree
     def inorder(self) -> None:
-        return self.__inorder_helper(self.root)
+        return self._inorder_helper(self.root)
 
     # postorder traversal -> left, right, root
     def postorder(self) -> None:
-        return self.__postorder_helper(self.root)
+        return self._postorder_helper(self.root)
 
-    def __preorder_helper(self, node: BinarySearchTreeNode) -> None:
+    def _preorder_helper(self, node: BinarySearchTreeNode) -> None:
         if node:
             print(str(node.data)+' -> ', end='')
-            self.__preorder_helper(node.left)
-            self.__preorder_helper(node.right)
+            self._preorder_helper(node.left)
+            self._preorder_helper(node.right)
 
-    def __inorder_helper(self, node: BinarySearchTreeNode) -> None:
+    def _inorder_helper(self, node: BinarySearchTreeNode) -> None:
         if node:
-            self.__inorder_helper(node.left)
+            self._inorder_helper(node.left)
             print(str(node.data) + ' -> ', end='')
-            self.__inorder_helper(node.right)
+            self._inorder_helper(node.right)
 
-    def __postorder_helper(self, node: BinarySearchTreeNode) -> None:
+    def _postorder_helper(self, node: BinarySearchTreeNode) -> None:
         if node:
-            self.__postorder_helper(node.left)
-            self.__postorder_helper(node.right)
+            self._postorder_helper(node.left)
+            self._postorder_helper(node.right)
             print(str(node.data) + ' -> ', end='')
 
     def invert(self) -> BinarySearchTreeNode:
-        return self.__invert_helper(self.root)
+        return self._invert_helper(self.root)
 
-    def __invert_helper(self, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
-        if node is not None:
+    def _invert_helper(self, node: BinarySearchTreeNode) -> BinarySearchTreeNode:
+        if node:
             temp = node.left
             node.left = node.right
             node.right = temp
-            self.__invert_helper(node.left)
-            self.__invert_helper(node.right)
+            self._invert_helper(node.left)
+            self._invert_helper(node.right)
         return node
+
+    def morris_inorder(self, root: BinarySearchTreeNode) -> None:
+        return self._morris_inorder(root)
+
+    def _morris_inorder(self, root) -> None:
+        predecessor = None
+
+        while root:
+            if root.left:
+                # find predecessor
+                predecessor = root.left
+                while predecessor.right and predecessor.right != root:
+                    predecessor = predecessor.right
+
+                if not predecessor.right:
+                    # set link
+                    predecessor.right = root
+                    root = root.left
+
+                else:
+                    # remove link
+                    print(str(root.data) + ' -> ', end='')
+                    predecessor.right = None
+                    root = root.right
+
+            else:
+                # not left child left
+                print(str(root.data) + ' -> ', end='')
+                root = root.right
 
     def get_size(self) -> int:
         return self.size
 
     def print_tree(self) -> None:
-        self.__print_tree_helper(self.root)
+        self._print_tree_helper(self.root)
 
-    def __print_tree_helper(self, root: BinarySearchTreeNode) -> None:
+    def _print_tree_helper(self, root: BinarySearchTreeNode) -> None:
         res = []
         q = deque([root])
         while q:
