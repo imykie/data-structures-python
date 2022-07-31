@@ -88,10 +88,10 @@ class SegmentTree:
         print("tree: ", self._tree)
 
 
-if __name__ == '__main__':
-    sg = SegmentTree([3, 4, 5, 6], 'MIN')
-    sg.print_tree()
-    print(sg.query(1, 3))
-    sg.update(2, 10)
-    sg.print_tree()
-    print(sg.query(1, 3))
+# if __name__ == '__main__':
+#     sg = SegmentTree([3, 4, 5, 6])
+#     sg.print_tree()
+#     print(sg.query(1, 3))
+#     sg.update(2, 10)
+#     sg.print_tree()
+#     print(sg.query(1, 3))
