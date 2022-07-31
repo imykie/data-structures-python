@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from Trees import RBTreeNode
 
 """
@@ -25,4 +26,3 @@ class RBTree:
     def __init__(self, root: RBTreeNode = None):
         self.root = root
         self.size = 0
-
