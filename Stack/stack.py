@@ -31,7 +31,7 @@ class StackArr:
         self.data = []
 
     def is_empty(self) -> bool:
-        return False if len(self.data) > 0 else True
+        return self.size() == 0
 
     def push(self, data: int) -> None:
         self.data.append(data)
@@ -40,10 +40,10 @@ class StackArr:
         self.data.pop()
 
     def peek(self) -> int:
-        return self.data[len(self.data) - 1] if len(self.data) > 0 else None
+        return self.data[-1] if self.data else None
 
     def size(self) -> int:
         return len(self.data)
 
     def clear(self) -> None:
-        self.data = []
+        self.data.clear()

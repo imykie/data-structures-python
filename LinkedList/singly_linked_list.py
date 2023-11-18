@@ -104,7 +104,7 @@ class SinglyLinkedList:
                 return
             current = self.head
             prev = None
-            for i in range(self.size):
+            for i in range(1, self.size - 1):
                 if i == index:
                     prev.next = current.next
                     break

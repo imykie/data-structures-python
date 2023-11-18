@@ -1,6 +1,7 @@
 from LinkedList import SinglyLinkedList
 from Stack import Stack, StackArr
 from Trees import BinarySearchTree, AVLTree
+from Sorts import MergeSort
 
 
 def test():
@@ -70,4 +71,51 @@ def test():
 
 
 if __name__ == '__main__':
-    test()
+
+    # # bubble sort
+    a = [5, 1, 4, 2, 8]
+    n = len(a)
+    for i in range(n):
+        for j in range(n - i - 1):
+            if a[j] > a[j + 1]:
+                a[j], a[j + 1] = a[j + 1], a[j]
+
+    # print(a)
+
+    # # insertion sort
+    # a = [5, 1, 4, 2, 8]
+    # n = len(a)
+    # for i in range(1, n):
+    #     key = a[i]
+    #     j = i - 1
+
+    #     while j >= 0 and key < a[j]:
+    #         a[j + 1] = a[j]
+    #         j -= 1
+    #     a[j + 1] = key
+
+    # print(a)
+
+    # # selection sort - look for minimum and put it first
+    # a = [5, 1, 4, 2, 8]
+    # n = len(a)
+
+    # for i in range(n):
+    #     minimum = i
+
+    #     for j in range(i + 1, n):
+    #         if a[minimum] > a[j]:
+    #             minimum = j
+
+    #     # swap minimum
+    #     a[i], a[minimum] = a[minimum], a[i]
+
+    # print(a)
+    # m = MergeSort(a)
+    # print("merge_sort", m.sort())
+        
+
+    # print([i for i in range(35, 61)])
+
+    # test()
+
