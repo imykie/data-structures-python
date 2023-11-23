@@ -14,10 +14,12 @@ class UnionFind:
         self.root = [i for i in range(self.size)]
         self.rank = [1] * self.size
 
+
     def find(self, x: int) -> int:
         if x != self.root[x]:
             self.root[x] = self.find(self.root[x])
         return self.root[x]
+
 
     def union(self, x: int, y: int) -> None:
         root_x = self.find(x)
@@ -34,3 +36,7 @@ class UnionFind:
             self.rank[root_x] += 1
 
         return True
+    
+
+    def connected(self, x: int, y: int) -> bool:
+        return self.find(x) == self.find(y)

@@ -1,8 +1,5 @@
-from typing import List
-
-
 class Node:
-    def __init__(self, data, adjacencies: List['Node'] = []) -> None:
+    def __init__(self, data, adjacencies: list['Node'] = []) -> None:
         self.data = data
         self.adjacencies = adjacencies
 

@@ -3,6 +3,7 @@ class HashMap:
         self.size = size
         self.data = [None] * self.size
 
+
     def put(self, key: int, value: int) -> None:
         pos = self.hash(key)
 
@@ -14,6 +15,7 @@ class HashMap:
         self.data[pos] = ListNode(key, value, next_node)
         return
 
+
     def get(self, key: int) -> int:
         pos = self.hash(key)
         if self.data[pos] is None:
@@ -24,6 +26,7 @@ class HashMap:
                 return head.value
             head = head.next
         return -1
+
 
     def remove(self, key: int) -> None:
         pos = self.hash(key)
@@ -41,8 +44,10 @@ class HashMap:
             prev, current = current, current.next
         return
 
+
     def clear(self) -> None:
         self.data = [None] * self.size
+
 
     def hash(self, key):
         return key % self.size

@@ -13,8 +13,10 @@ class QuickFind:
         for i in range(self.size):
             self.root[i] = [i]
 
+
     def find(self, x: int) -> int:
         return self.root[x]
+
 
     def union(self, x: int, y: int) -> None:
         root_x = self.find(x)

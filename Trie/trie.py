@@ -1,11 +1,10 @@
-from __future__ import annotations
-
 from Trie import TrieNode
 
 
 class Trie:
     def __init__(self) -> None:
         self.root = TrieNode()
+
 
     def insert(self, word: str) -> None:
         node = self.root
@@ -16,6 +15,7 @@ class Trie:
             node = node.children[ch]
         node.is_end = True
 
+
     def search_prefix(self, word: str) -> TrieNode:
         node = self.root
 
@@ -25,16 +25,20 @@ class Trie:
             node = node.children[ch]
         return node
 
+
     def search(self, word: str) -> bool:
         node = self.search_prefix(word)
         return node is not None and node.is_end
+
 
     def starts_with(self, prefix: str) -> bool:
         node = self.search_prefix(prefix)
         return node is not None
 
+
     def find_match(self, match: str) -> bool:  # eg: match -> a*a*a, a*, a**
         return self.__find_match_helper(match, self.root)
+
 
     def __find_match_helper(self, match: str, node: TrieNode):
         for i, ch in enumerate(match):
@@ -49,12 +53,14 @@ class Trie:
 
         return True
 
+
     def remove(self, word: str) -> None:
         node = self.root
         if not node:
             raise ValueError("Trie is empty")
 
         return self.__remove_helper(self.root, word)
+
 
     def __remove_helper(self, node: TrieNode, word: str, depth: int = 0):
         # if it's last character
